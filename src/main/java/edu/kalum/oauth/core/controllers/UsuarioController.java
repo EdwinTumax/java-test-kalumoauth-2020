@@ -129,6 +129,12 @@ public class UsuarioController {
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
         }
         try{
+            if(this.usuarioService.findByEmail(value.getEmail()) != null ){
+                logger.error("Error el correo electronico ya existe");
+                response.put("Mensaje","Correo electronico existente");
+                response.put("Error","Correo electronico existente");
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
+            }
             List<Role> roles = new ArrayList<Role>();
             Role role = this.roleService.findById(2L);
             roles.add(role);
@@ -145,7 +151,7 @@ public class UsuarioController {
             logger.error("Error al realizar el insert a la base de datos");
             response.put("Mensaje","Error al realizar el insert a la base de datos");
             response.put("Error",e.getMessage().concat(": ".concat(e.getMostSpecificCause().getMessage())));
-            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         logger.debug("Finalizando preceso de insert del usuario a la base de datos");
         response.put("Mensaje","El usuario ha sido creado con éxito");
