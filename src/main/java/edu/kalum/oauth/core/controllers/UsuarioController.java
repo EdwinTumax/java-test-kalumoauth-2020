@@ -134,6 +134,11 @@ public class UsuarioController {
                 response.put("Mensaje","Correo electronico existente");
                 response.put("Error","Correo electronico existente");
                 return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
+            }else if(this.usuarioService.findByUsername(value.getUsername()) != null ){
+                logger.error("Error el username ya existe");
+                response.put("Mensaje","Username existente");
+                response.put("Error","Username existente");
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
             }
             List<Role> roles = new ArrayList<Role>();
             Role role = this.roleService.findById(2L);
