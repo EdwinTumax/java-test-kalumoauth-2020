@@ -327,11 +327,12 @@ public class UsuarioController {
         Usuario usuario = null;
         logger.debug("Iniciando proceso de eliminación de role");
         try{
-            usuario = usuarioService.findById(idUser);
+            usuario = usuarioService.findById(idUser);  
             if(usuario != null){
                 Role role = roleService.findById(idRole);
                 if(role != null){
                     usuario.getRoles().remove(role);
+                    usuarioService.save(usuario);
                 }else{
                     logger.warn("No existe el role con el id ".concat(idRole.toString()));
                     response.put("Mensaje","No existe el role con el id ".concat(idRole.toString()));
