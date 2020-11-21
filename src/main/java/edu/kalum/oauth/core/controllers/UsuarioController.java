@@ -189,7 +189,6 @@ public class UsuarioController {
                 update.setApellidos(value.getApellidos());
                 update.setNombres(value.getNombres());
                 update.setBio(value.getBio());
-                update.setEmail(value.getEmail());
                 usuarioService.save(update);
             } else {
                 logger.debug("No existe el usuario con el id ".concat(id.toString()));
