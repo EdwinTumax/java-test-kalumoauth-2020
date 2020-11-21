@@ -179,12 +179,6 @@ public class UsuarioController {
         try {
             update = usuarioService.findById(id);
             if (update != null) {
-                if(this.usuarioService.findByEmail(value.getEmail()) != null ){
-                    logger.error("Error el correo electronico ya existe");
-                    response.put("Mensaje","Correo electronico existente");
-                    response.put("Error","Correo electronico existente");
-                    return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
-                }
                 update.setUsername(value.getUsername());
                 update.setApellidos(value.getApellidos());
                 update.setNombres(value.getNombres());
